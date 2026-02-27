@@ -1,8 +1,9 @@
+cat > ~/devops-demo/Jenkinsfile <<EOF
 pipeline {
     agent any
 
     environment {
-        DOCKER_IMAGE = 'shivaranidara/devops-demo'
+        DOCKER_IMAGE = 'shivarani123/devops-demo'
     }
 
     stages {
@@ -14,15 +15,15 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t ${DOCKER_IMAGE} .'
+                sh 'docker build -t \${DOCKER_IMAGE} .'
             }
         }
 
         stage('Push to Docker Hub') {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'dockerhub-creds', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-                    sh 'echo $PASSWORD | docker login -u $USERNAME --password-stdin'
-                    sh 'docker push ${DOCKER_IMAGE}'
+                    sh 'echo \$PASSWORD | docker login -u \$USERNAME --password-stdin'
+                    sh 'docker push \${DOCKER_IMAGE}'
                 }
             }
         }
@@ -35,3 +36,4 @@ pipeline {
         }
     }
 }
+EOF
