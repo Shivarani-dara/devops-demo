@@ -1,3 +1,4 @@
+cat > ~/devops-demo/Jenkinsfile << 'EOF'
 pipeline {
     agent any
 
@@ -29,9 +30,10 @@ pipeline {
 
         stage('Deploy to Kubernetes') {
             steps {
-                sh 'kubectl apply -f k8s/deployment.yaml'
-                sh 'kubectl apply -f k8s/service.yaml'
+                sh 'kubectl apply -f deployment.yaml'
+                sh 'kubectl apply -f service.yaml'
             }
         }
     }
 }
+EOF
